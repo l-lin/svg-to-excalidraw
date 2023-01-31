@@ -2,6 +2,15 @@
 
 Library to convert SVG to Excalidraw’s file format.
 
+## Usage
+
+```bash
+npm i
+npm run build
+npx serve -p 4200
+firefox http://localhost:4200/dev
+```
+
 ## :floppy_disk: Installation
 
 ```bash

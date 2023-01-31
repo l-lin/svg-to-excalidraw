@@ -3,11 +3,11 @@
   <head>
     <title>svg-to-excalidraw</title>
     <style>
-      html {
-        height: 100%;
-        width: 100%;
-        font-family: Verdana, Geneva, sans-serif;
-      }
+html {
+  height: 100%;
+  width: 100%;
+  font-family: Verdana, Geneva, sans-serif;
+}
 
       body {
         display: flex;
@@ -78,9 +78,9 @@
         <input type="file" id="source" accept=".svg" />
       </aside>
       <textarea
-        id="result"
-        placeholder="Result in excalidraw file format should be output here"
-      ></textarea>
+          id="result"
+          placeholder="Result in excalidraw file format should be output here"
+          ></textarea>
     </main>
     <script type="module">
       import svgParse from "../dist/esm-bundle.js";
@@ -108,9 +108,14 @@
 
         reader.readAsText(file);
         reader.addEventListener("load", (event) => {
-          const parsingResult = svgParse.parse(event.target.result);
+          const { hasErrors, errors, content } = svgParse.convert(event.target.result);
 
-          output.value = JSON.stringify(parsingResult, null, 2);
+          // SVG parsing errors are propagated through.
+          if (hasErrors) {
+            console.error(errors);
+            return;
+          }
+          output.value = JSON.stringify(content, null, 2);
         });
       }
     </script>
